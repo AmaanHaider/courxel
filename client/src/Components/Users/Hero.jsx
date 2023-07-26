@@ -34,7 +34,7 @@ const Blob = (props) => {
 
 export default function Hero() {
   return (
-    <Container maxW={"7xl"}>
+    <Container maxW={"7xl"} mt={6}>
       <Stack
         align={"center"}
         spacing={{ base: 8, md: 10 }}

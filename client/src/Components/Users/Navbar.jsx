@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-// import { Logo } from "@choc-ui/logo";
+import courxelLogo from "../../assets/courxel-logo.png";
 
 const Navbar = () => {
     const {colorMode , toggleColorMode}= useColorMode()
@@ -31,6 +31,8 @@ const Navbar = () => {
         px={{ base: 2, sm: 4 }}
         py={4}
         shadow="md"
+        //  position="sticky"
+        // top={0}
       >
         <Flex alignItems="center" justifyContent="space-between" mx="auto">
           <Flex>
@@ -40,11 +42,12 @@ const Navbar = () => {
               display="flex"
               alignItems="center"
             >
-              {/* <Logo /> */}
               <VisuallyHidden>CourXel</VisuallyHidden>
             </chakra.a>
             <chakra.h1 fontSize="xl" fontWeight="medium" ml="2">
-              CourXel
+            <Box w="120px" h="fit-content" mr={2}>
+              <img  src={courxelLogo} alt="CourXel" />
+            </Box>
             </chakra.h1>
           </Flex>
           <HStack display="flex" alignItems="center" spacing={1}>

@@ -81,7 +81,7 @@ import {
       <Box bg={useColorModeValue('gray.100', 'gray.700')}>
         <Container maxW={'7xl'} py={16} as={Stack} spacing={12}>
           <Stack spacing={0} align={'center'}>
-            <Heading>Our Clients Speak</Heading>
+            <Heading>Testimonials</Heading>
             <Text>We have been working with clients around the world</Text>
           </Stack>
           <Stack

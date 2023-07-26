@@ -100,7 +100,9 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <div>
+      <div style={{
+         marginTop: "80px",
+      }}>
         {" "}
         <Hero />{" "}
       </div>
