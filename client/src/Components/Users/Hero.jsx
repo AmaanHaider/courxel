@@ -64,15 +64,15 @@ export default function Hero() {
              Knowledge Exchange Made Simple
             </Text>
             <br />
-            <Text fontSize="md" color={"red.400"}>
+            <Text mt={4} fontSize="md" color={"red.400"}>
             Buy, Sell, and Elevate Your Skills
             </Text>
           </Heading>
-          <Text color={"gray.500"}>
+          {/* <Text color={"gray.500"}>
             Snippy is a rich coding snippets app that lets you create your own
             code snippets, categorize them, and even sync them in the cloud so
             you can use them anywhere. All that is free!
-          </Text>
+          </Text> */}
           <Stack
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: "column", sm: "row" }}

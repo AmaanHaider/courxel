@@ -17,6 +17,7 @@ import {
 import { AiOutlineMenu } from "react-icons/ai";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import courxelLogo from "../../assets/courxel-logo.png";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     const {colorMode , toggleColorMode}= useColorMode()
@@ -57,12 +58,13 @@ const Navbar = () => {
               color="brand.500"
               display={{ base: "none", md: "inline-flex" }}
             >
-              <Button variant="ghost">Courses</Button>
-              <Button variant="ghost">Sign Up</Button>
-              <Button variant="ghost">Log in</Button>
+              <Button variant="ghost">
+                <Link to='/course'>Course</Link>
+              </Button>
+              <Button variant="ghost">  <Link to='/signup'>Sign Up</Link></Button>
+              <Button variant="ghost"><Link to='/login'>Log In</Link></Button>
               <Button onClick={toggleColorMode}>
                 {colorMode==="light" ? <MoonIcon/> : <SunIcon/>}
-
               </Button>
             </HStack>
             <Button colorScheme="red" size="sm">
@@ -99,15 +101,11 @@ const Navbar = () => {
                   aria-label="Close menu"
                   onClick={mobileNav.onClose}
                 />
-                <Button w="full" variant="ghost">
-                  Courses
-                </Button>
-                <Button w="full" variant="ghost">
-                  Sign Up
-                </Button>
-                <Button w="full" variant="ghost">
-                  Log in
-                </Button>
+               <Button variant="ghost">
+                <Link to='/course'>Course</Link>
+              </Button>
+                <Button variant="ghost">  <Link to='/signup'>Sign Up</Link></Button>
+                <Button variant="ghost">  <Link to='/login'>Log In</Link></Button>
               </VStack>
             </Box>
           </HStack>

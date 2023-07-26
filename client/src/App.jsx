@@ -1,9 +1,10 @@
 
 import { Route, Routes } from 'react-router-dom'
-import Signup from './Components/Users/Signup'
-import Login from './Components/Users/Login'
 import Dashboard from './Components/Users/Dashboard'
 import Home from './Pages/UserPages/Home'
+import Login from './Pages/UserPages/Login'
+import Signup from './Pages/UserPages/Signup'
+import UserPrivateRoute from './PrivateRoutes/UserPrivateRoute'
 
 function App() {
   return (
@@ -11,10 +12,9 @@ function App() {
       <Routes>
         {/* //userroutes  ---------------------------*/}
         <Route path='/' element={<Home/>}/>
-
-        <Route path='/signup' element={<Signup/>}/>
         <Route path='/login' element={<Login/>}/>
-        <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/signup' element={<Signup/>}/>
+      <Route path='/dashboard' element={<UserPrivateRoute Component={Dashboard} />}/>
       </Routes>
     </div>
   )

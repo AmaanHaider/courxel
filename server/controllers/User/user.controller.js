@@ -1,10 +1,10 @@
-const User = require("../model/user.model");
+const User = require("../../model/user/user.model");
 const brcypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password, isAdmin } = req.body;
+    const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
       res.status(400);
@@ -23,7 +23,6 @@ const registerUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      isAdmin: isAdmin || false, // Default value of isAdmin is false if not provided
     });
     if (user) {
       res.status(201).json({ _id: user.id, email: user.email,message:"User Registered Successfully" });
@@ -69,8 +68,8 @@ const loginUser = async (req, res) => {
 
 const currentUser = async (req, res) => {
   try {
-    const { name, email, isAdmin } = req.user; // Include isAdmin field in the response
-    res.json({ name, email, isAdmin });
+    const { name, email } = req.user; // Include  field in the response
+    res.json({ name, email });
   } catch (error) {
     res.status(500).json({ message: "Error fetching user data", error: error.message });
   }

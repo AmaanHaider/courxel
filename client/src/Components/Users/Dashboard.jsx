@@ -1,38 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import {
-  IconButton,
-  Avatar,
-  Box,
-  CloseButton,
-  Flex,
-  HStack,
-  VStack,
-  Icon,
-  useColorModeValue,
-  Text,
-  Drawer,
-  DrawerContent,
-  useDisclosure,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
-  useColorMode,
-  Button,
-} from "@chakra-ui/react";
-import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
-  FiMenu,
-  FiBell,
-  FiChevronDown,
-} from "react-icons/fi";
+import { IconButton, Avatar, Box, CloseButton, Flex, HStack, VStack, Icon, useColorModeValue, Text, Drawer, DrawerContent, useDisclosure, Menu, MenuButton, MenuDivider, MenuItem, MenuList, useColorMode, Button } from "@chakra-ui/react";
+import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
 import { ArrowForwardIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 const LinkItems = [
   { name: "Home", icon: FiHome },
@@ -108,6 +78,14 @@ const NavItem = ({ icon, children, ...rest }) => {
 
 const MobileNav = ({ onOpen, ...rest }) => {
   const { colorMode, toggleColorMode } = useColorMode();
+
+  const handleLogout = () => {
+   
+    localStorage.removeItem("accessToken");
+    const navigate = useNavigate();
+    navigate("/login");
+  };
+
 
   return (
     <Flex
@@ -185,8 +163,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   rightIcon={<ArrowForwardIcon />}
                   colorScheme="red"
                   variant="outline"
+                  onClick={handleLogout}
                 >
-                 Sign Out
+                  Sign Out
                 </Button>
               </MenuItem>
             </MenuList>
