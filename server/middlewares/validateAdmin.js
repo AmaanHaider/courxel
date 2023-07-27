@@ -1,19 +1,30 @@
-const User = require("../model/user/user.model");
-const validateAdmin = async(req, res, next) => {
-  const userID = req.user.id
-  const findRole = await User.findById(userID)
-  // console.log(findRole.isAdmin);
-  
-  if (findRole.isAdmin==true) {
-    // User is an admin, continue to the next middleware or route handler
-    next();
+const jwt = require("jsonwebtoken");
+
+const validateAdmin = async (req, res, next) => {
+  let token;
+  let authHeader = req.headers.Authorization || req.headers.authorization;
+
+  if (authHeader && authHeader.startsWith("Bearer")) {
+    token = authHeader.split(" ")[1];
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ message: "Admin is not authorized" });
+      }
+
+      // console.log(decoded.user.isAdmin);
+
+      if (!decoded.user.isAdmin) {
+        return res.status(403).json({ message: "You are not authorized as an admin." });
+      }
+
+      req.user = decoded.user;
+      next();
+    });
   } else {
-    // User is not an admin, return a 403 Forbidden status code
-    res.status(403).json({ message: "You are not authorized as an admin." });
+    return res.status(401).json({ message: "Admin is not authorized or token is missing in request" });
   }
-  };
-  
-  module.exports = {
-    validateAdmin
-  };
-  
+};
+
+module.exports = {
+  validateAdmin,
+};

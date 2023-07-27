@@ -31,7 +31,7 @@ const registerAdmin = async (req, res) => {
       throw new Error("Admin data not valid");
     }
   } catch (error) {
-    res.status(500).json({ message: "Error registering user", error: error.message });
+    res.status(500).json({ message: "Error registering Admin", error: error.message });
   }
 };
 
@@ -51,6 +51,7 @@ const loginAdmin = async (req, res) => {
             name: user.name,
             email: user.email,
             id: user.id,
+            isAdmin: user.isAdmin,
           },
         },
         process.env.JWT_SECRET,
