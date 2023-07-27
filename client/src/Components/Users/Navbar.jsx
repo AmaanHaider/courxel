@@ -58,11 +58,15 @@ const Navbar = () => {
               color="brand.500"
               display={{ base: "none", md: "inline-flex" }}
             >
-              <Button variant="ghost">
-                <Link to='/course'>Course</Link>
-              </Button>
-              <Button variant="ghost">  <Link to='/signup'>Sign Up</Link></Button>
-              <Button variant="ghost"><Link to='/login'>Log In</Link></Button>
+              <Link to='/course'>
+                <Button variant="ghost">Courses</Button>
+              </Link>
+              <Link to='/signup'>
+                <Button variant="ghost">  Sign Up</Button>
+              </Link>
+              <Link to='/login'>
+                <Button variant="ghost">Log In</Button>
+              </Link>
               <Button onClick={toggleColorMode}>
                 {colorMode==="light" ? <MoonIcon/> : <SunIcon/>}
               </Button>
@@ -81,7 +85,6 @@ const Navbar = () => {
                 icon={<AiOutlineMenu />}
                 onClick={mobileNav.onOpen}
               />
-
               <VStack
                 pos="absolute"
                 top={0}
@@ -101,11 +104,15 @@ const Navbar = () => {
                   aria-label="Close menu"
                   onClick={mobileNav.onClose}
                 />
-               <Button variant="ghost">
-                <Link to='/course'>Course</Link>
-              </Button>
-                <Button variant="ghost">  <Link to='/signup'>Sign Up</Link></Button>
-                <Button variant="ghost">  <Link to='/login'>Log In</Link></Button>
+              <Link to='/course'>
+                <Button variant="ghost">Courses</Button>
+              </Link>
+              <Link to='/signup'>
+                <Button variant="ghost">  Sign Up</Button>
+              </Link>
+              <Link to='/login'>
+                <Button variant="ghost">Log In</Button>
+              </Link>
               </VStack>
             </Box>
           </HStack>
