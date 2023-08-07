@@ -8,9 +8,9 @@ import courxelLogo from "../../assets/courxel-logo.png";
 const LinkItems = [
   { name: "Home", icon: FiHome,navlink:"/user" },
   { name: "Trending", icon: FiTrendingUp,navlink:"/user"  },
-  { name: "Explore", icon: FiCompass ,navlink:"/user" },
-  { name: "Favourites", icon: FiStar ,navlink:"/user" },
-  { name: "Settings", icon: FiSettings ,navlink:"/user" },
+  // { name: "Explore", icon: FiCompass ,navlink:"/user" },
+  // { name: "Favourites", icon: FiStar ,navlink:"/user" },
+  // { name: "Settings", icon: FiSettings ,navlink:"/user" },
 ];
 
 const SidebarContent = ({ onClose, ...rest }) => {

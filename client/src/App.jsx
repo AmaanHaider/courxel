@@ -7,14 +7,18 @@ import CourseDetails from './Pages/UserPages/CourseDetails'
 import PageNotFound from './Components/PageNotFound'
 import { UserPrivateRoute } from './PrivateRouter/UserPrivateRoute'
 import DashBoard from './Pages/UserPages/DashBoard'
+import Example from './Example'
 
 function App() {
   return (
     <div>
       <Routes>
         <Route path='*' element={<PageNotFound/>}/>
+
+
         {/* //userroutes  ---------------------------*/}
         <Route path='/' element={<Home/>}/>
+        <Route path='/example' element={<Example/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
   {/*----------------------- user private routes ----------------------*/}
