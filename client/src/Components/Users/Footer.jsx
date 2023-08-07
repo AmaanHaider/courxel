@@ -8,7 +8,7 @@ import {
   useColorModeValue,
   VisuallyHidden,
 } from '@chakra-ui/react';
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaInstagram, FaTwitter, FaGithub } from 'react-icons/fa';
 import { ReactNode } from 'react';
 
 const Logo = (props) => {
@@ -95,11 +95,11 @@ export default function Footer() {
         >
           <Text>© 2023 CourXel. All rights reserved</Text>
           <Stack direction={'row'} spacing={6}>
-            <SocialButton label={'Twitter'} href={'#'}>
+            <SocialButton label={'Twitter'} href={'https://twitter.com/Amaan_haiderrr'}>
               <FaTwitter />
             </SocialButton>
-            <SocialButton label={'YouTube'} href={'#'}>
-              <FaYoutube />
+            <SocialButton label={'Github'} href={'https://github.com/AmaanHaider/courxel'}  >
+              <FaGithub />
             </SocialButton>
             <SocialButton label={'Instagram'} href={'#'}>
               <FaInstagram />

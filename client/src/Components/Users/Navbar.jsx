@@ -46,9 +46,11 @@ const Navbar = () => {
               <VisuallyHidden>CourXel</VisuallyHidden>
             </chakra.a>
             <chakra.h1 fontSize="xl" fontWeight="medium" ml="2">
-            <Box w="120px" h="fit-content" mr={2}>
+              <Link to='/'>
+             <Box w="120px" h="fit-content" mr={2}>
               <img  src={courxelLogo} alt="CourXel" />
-            </Box>
+             </Box>
+              </Link>
             </chakra.h1>
           </Flex>
           <HStack display="flex" alignItems="center" spacing={1}>
@@ -58,9 +60,6 @@ const Navbar = () => {
               color="brand.500"
               display={{ base: "none", md: "inline-flex" }}
             >
-              <Link to='/course'>
-                <Button variant="ghost">Courses</Button>
-              </Link>
               <Link to='/signup'>
                 <Button variant="ghost">  Sign Up</Button>
               </Link>
@@ -104,15 +103,18 @@ const Navbar = () => {
                   aria-label="Close menu"
                   onClick={mobileNav.onClose}
                 />
-              <Link to='/course'>
-                <Button variant="ghost">Courses</Button>
-              </Link>
               <Link to='/signup'>
                 <Button variant="ghost">  Sign Up</Button>
               </Link>
               <Link to='/login'>
                 <Button variant="ghost">Log In</Button>
               </Link>
+              <Link to='/course'>
+              <Button colorScheme="red" size="sm">
+              Create Course
+            </Button>
+              </Link>
+             
               </VStack>
             </Box>
           </HStack>

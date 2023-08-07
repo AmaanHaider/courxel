@@ -1,16 +1,15 @@
 import React from "react";
-import { Flex, Box, chakra, Image, Link, Button, Center, Text } from "@chakra-ui/react";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { Flex, Box, chakra, Image, Button, Center, Text } from "@chakra-ui/react";
+import { motion } from "framer-motion"; // Import motion from framer-motion
+import { Link } from "react-router-dom";
 
-import { BiSolidPurchaseTag } from 'react-icons/bi';
+// import { BiSolidPurchaseTag } from 'react-icons/bi';
 
-class Question extends React.Component {
-  render() {
-    return <h3> Lets go for a <FaBeer />? </h3>
-  }
-}
 
-export const FeaturedCards = ({ imageUrl, title, description, author, date }) => (
+
+export const FeaturedCards = ({ imageUrl, title, description, authorName, date, _id }) => (
+  <motion.div whileHover={{ scale: 1.05 }}> {/* Apply the hover animation */}
+
   <Box
     mx="auto"
     mb={4}
@@ -30,14 +29,6 @@ export const FeaturedCards = ({ imageUrl, title, description, author, date }) =>
     />
     <Box p={6}>
       <Box>
-        {/* <chakra.span
-          fontSize="xs"
-          textTransform="uppercase"
-          color="brand.600"
-          _dark={{ color: "brand.400" }}
-        >
-          Product
-        </chakra.span> */}
         <Link
           display="block"
           color="gray.800"
@@ -56,20 +47,14 @@ export const FeaturedCards = ({ imageUrl, title, description, author, date }) =>
       <Box mt={4}>
         <Flex alignItems="center">
           <Flex alignItems="center">
-            {/* <Image
-              h={10}
-              fit="cover"
-              rounded="full"
-              src={author.avatarUrl}
-              alt="Avatar"
-            /> */}
+            
             <Text
               mx={2}
               fontWeight="bold"
               color="gray.700"
               _dark={{ color: "gray.200" }}
             >
-             Author : {author.name}
+             Author : {authorName}
             </Text>
           </Flex>
           <chakra.span
@@ -78,18 +63,21 @@ export const FeaturedCards = ({ imageUrl, title, description, author, date }) =>
             color="gray.600"
             _dark={{ color: "gray.300" }}
           >
-            {date}
+            {new Date(date).toLocaleDateString() }
           </chakra.span>
         </Flex>
         <Box mt={2}>
             <Center>
-            <Button rightIcon={<BiSolidPurchaseTag/>} colorScheme='teal' variant='outline'>
-              Buy Now
+              <Link to={`/user/courses/${_id}`}>
+            <Button  colorScheme='teal' variant='outline'>
+              View Details
              </Button>
+              </Link>
             </Center>
          </Box>
       </Box>
     </Box>
   </Box>
+  </motion.div >
 );
 

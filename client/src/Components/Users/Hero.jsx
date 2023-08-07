@@ -1,4 +1,4 @@
-"use client";
+
 
 import {
   Container,
@@ -12,6 +12,7 @@ import {
   Icon,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const Blob = (props) => {
   return (
@@ -77,6 +78,7 @@ export default function Hero() {
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: "column", sm: "row" }}
           >
+            <Link to='/user'>
             <Button
               rounded={"full"}
               size={"lg"}
@@ -88,9 +90,12 @@ export default function Hero() {
             >
               Explore Courses
             </Button>
+            </Link>
+            <Link>
             <Button rounded={"full"} size={"lg"} fontWeight={"normal"} px={6}>
               Create Course
             </Button>
+            </Link>
           </Stack>
         </Stack>
         <Flex

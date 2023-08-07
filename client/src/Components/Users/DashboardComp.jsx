@@ -1,15 +1,16 @@
 import React from "react";
-import { IconButton, Avatar, Box, CloseButton, Flex, HStack, VStack, Icon, useColorModeValue, Text, Drawer, DrawerContent, useDisclosure, Menu, MenuButton, MenuDivider, MenuItem, MenuList, useColorMode, Button } from "@chakra-ui/react";
+import { IconButton, Avatar, Box, CloseButton, Flex, HStack, VStack, Icon, useColorModeValue, Text, Drawer, DrawerContent, useDisclosure, Menu, MenuButton, MenuDivider, MenuItem, MenuList, useColorMode, Button, Container, Center, Heading } from "@chakra-ui/react";
 import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
 import { ArrowForwardIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import courxelLogo from "../../assets/courxel-logo.png";
 
 const LinkItems = [
-  { name: "Home", icon: FiHome },
-  { name: "Trending", icon: FiTrendingUp },
-  { name: "Explore", icon: FiCompass },
-  { name: "Favourites", icon: FiStar },
-  { name: "Settings", icon: FiSettings },
+  { name: "Home", icon: FiHome,navlink:"/user" },
+  { name: "Trending", icon: FiTrendingUp,navlink:"/user"  },
+  { name: "Explore", icon: FiCompass ,navlink:"/user" },
+  { name: "Favourites", icon: FiStar ,navlink:"/user" },
+  { name: "Settings", icon: FiSettings ,navlink:"/user" },
 ];
 
 const SidebarContent = ({ onClose, ...rest }) => {
@@ -26,14 +27,18 @@ const SidebarContent = ({ onClose, ...rest }) => {
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          CourXel
+        <Box w="120px" h="fit-content" mr={2}>
+              <img  src={courxelLogo} alt="CourXel" />
+             </Box>
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
+        <Link to={link.navlink}>
         <NavItem key={link.name} icon={link.icon}>
           {link.name}
         </NavItem>
+        </Link>
       ))}
     </Box>
   );
@@ -78,11 +83,11 @@ const NavItem = ({ icon, children, ...rest }) => {
 
 const MobileNav = ({ onOpen, ...rest }) => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const navigate = useNavigate();
 
-  const handleLogout = () => {
-   
-    localStorage.removeItem("accessToken");
-    const navigate = useNavigate();
+  const handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("USER-JWT-TOKEN");
     navigate("/login");
   };
 
@@ -113,7 +118,10 @@ const MobileNav = ({ onOpen, ...rest }) => {
         fontFamily="monospace"
         fontWeight="bold"
       >
-        CourXel
+        {/* CourXel */}
+        <Box w="120px" h="fit-content" mr={2}>
+              <img  src={courxelLogo} alt="CourXel" />
+             </Box>
       </Text>
 
       <HStack spacing={{ base: "0", md: "6" }}>
@@ -176,7 +184,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
   );
 };
 
-const Dashboard = () => {
+const DashboardComp = ({Children}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -199,14 +207,19 @@ const Dashboard = () => {
       </Drawer>
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
+
+
       <Box ml={{ base: 0, md: 60 }} p="4">
         {/* Content */}
         <div>
-          <hi>sakdbsahdgashgdasgdasgdasgdasdh</hi>
+          <Container maxW="full" >
+           {Children}
+         
+          </Container>
         </div>
       </Box>
     </Box>
   );
 };
 
-export default Dashboard;
+export default DashboardComp;

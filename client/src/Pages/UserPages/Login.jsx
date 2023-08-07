@@ -34,10 +34,13 @@ const Login = () => {
   });
   const navigate = useNavigate();
   const toast = useToast();
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
+
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -45,16 +48,16 @@ const Login = () => {
         title: "Logging in...",
         status: "info",
         duration: null, 
-        isClosable: false,
+        isClosable: true,
         position: "top-right",
       });
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}api/auth/user/login`,
         formData
       );
-      const token = response.data;
       toast.close(loadingToastId);
 
+      const token = response.data;
       toast({
         title: "Login successful",
         description: "You have successfully logged in!",
@@ -63,8 +66,8 @@ const Login = () => {
         duration: 5000,
         isClosable: true,
       });
-      localStorage.setItem("accessToken", token);
-      navigate("/dashboard");
+      localStorage.setItem("USER-JWT-TOKEN", token);
+      navigate("/user");
     } catch (error) {
       toast({
         title: "Login error",
