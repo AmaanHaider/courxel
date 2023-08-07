@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 
 
-export const FeaturedCards = ({ imageUrl, title, description, authorName, date, _id }) => (
+export const FeaturedCards = ({ imageUrl, title, description, authorName, date, _id ,link}) => (
   <motion.div whileHover={{ scale: 1.05 }}> {/* Apply the hover animation */}
 
   <Box
@@ -68,7 +68,7 @@ export const FeaturedCards = ({ imageUrl, title, description, authorName, date, 
         </Flex>
         <Box mt={2}>
             <Center>
-              <Link to={`/user/courses/${_id}`}>
+              <Link to={`${link}/${_id}`}>
             <Button  colorScheme='teal' variant='outline'>
               View Details
              </Button>

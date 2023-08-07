@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  Box,
   Button,
   Center,
   Container,
@@ -49,6 +50,8 @@ const Home = () => {
   console.log(courses);
 
   return (
+    <Box>
+
     <div>
       <Navbar />
       <div style={{
@@ -93,16 +96,17 @@ const Home = () => {
                 <FeaturedCards key={card._id} {...card} />
               ))}
             </Grid>
-          <div style={{
+         
+          </Flex>
+           <div style={{
             marginTop:"4%"
           }}>
             <Center>
-              <Link to='/user/courses'>
+              <Link to='/user'>
               <Button size='lg'  colorScheme={"red"} bg={"red.400"}>Explore More</Button>
               </Link>
             </Center>
           </div>
-          </Flex>
         </Container>
       </div>
 \
@@ -124,6 +128,7 @@ const Home = () => {
         <Footer />
       </div>
     </div>
+    </Box>
   );
 };
 

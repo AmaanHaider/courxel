@@ -4,10 +4,11 @@ import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiBell, Fi
 import { ArrowForwardIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Link, useNavigate } from "react-router-dom";
 import courxelLogo from "../../assets/courxel-logo.png";
+import { FaDownload } from "react-icons/fa";
 
 const LinkItems = [
   { name: "Home", icon: FiHome,navlink:"/user" },
-  { name: "Trending", icon: FiTrendingUp,navlink:"/user"  },
+  { name: "Purchased Course", icon: FaDownload,navlink:"/user/purchased"  },
   // { name: "Explore", icon: FiCompass ,navlink:"/user" },
   // { name: "Favourites", icon: FiStar ,navlink:"/user" },
   // { name: "Settings", icon: FiSettings ,navlink:"/user" },
@@ -214,7 +215,6 @@ const DashboardComp = ({Children}) => {
         <div>
           <Container maxW="full" >
            {Children}
-         
           </Container>
         </div>
       </Box>

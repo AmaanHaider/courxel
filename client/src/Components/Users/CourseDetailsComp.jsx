@@ -23,6 +23,7 @@ import {
   Divider,
   CardFooter,
   ButtonGroup,
+  useToast,
 } from "@chakra-ui/react";
 import {
   FaShoppingCart,
@@ -35,10 +36,73 @@ import {
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { motion } from "framer-motion";
 import Footer from "./Footer";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const MotionBox = motion(Box);
 
 const CourseDetailsPage = () => {
+
+  const [courseDetails, setCourseDetails] = useState([])
+  const {id} = useParams(); 
+  const [videoTitle, setvideoTitle] = useState([])
+
+  const toast = useToast();
+
+
+
+    useEffect(() => {
+    const fetchCoursesDetails = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}api/getcourse/${id}`);
+        setCourseDetails(response.data[0]);
+        setvideoTitle(response.data[0].videoData)
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+      }
+    };
+    fetchCoursesDetails();
+  }, []);
+
+
+  const authToken = localStorage.getItem("USER-JWT-TOKEN");
+
+  const handlePurchase = async () => {
+    try {
+      console.log(authToken);
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}api/user/purchase/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      // Display success message
+      toast({
+        title: "Course Purchased",
+        description: response.data.message,
+        status: "success",
+        duration: 3000,
+        isClosable: true,position:"top-right"
+      });
+    } catch (error) {
+      // Display error message
+      toast({
+        title: "Error",
+        description: "Error purchasing course. Please try again later.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position:"top-right"
+      });
+    }
+  };
+
   const ChapterCard = ({ title }) => {
     return (
       <MotionBox
@@ -60,6 +124,10 @@ const CourseDetailsPage = () => {
       </MotionBox>
     );
   };
+  
+
+//   console.log(videoTitle);
+
 
   return (
     <Box>
@@ -89,20 +157,19 @@ const CourseDetailsPage = () => {
                   <Box p="4">
                     <Flex direction="column">
                       <Heading as="h1" size="xl" fontWeight="semibold" mb="2">
-                        Course Title
+                       {courseDetails.title}
                       </Heading>
                       <Flex alignItems="center" mb="2">
                         <Icon as={AiOutlineClockCircle} mr="2" />
-                        <Box>Duration: 5 hours</Box>
+                        <Box>Duration: {courseDetails.duration}</Box>
                       </Flex>
                       <Box mb="4" mt="5%">
                         <Heading as="h1" size="xl" fontWeight="semibold" mb="2">
                           Description
+                         
                         </Heading>
                         <Text>
-                          Course description goes here. Lorem ipsum dolor sit
-                          amet, consectetur adipiscing elit. Nullam ac
-                          vestibulum felis.
+                        {courseDetails.description}
                         </Text>
                       </Box>
                       <Box
@@ -177,9 +244,14 @@ const CourseDetailsPage = () => {
                     gap="4"
                   >
                     {/* Dynamically generate chapter cards */}
-                    {Array.from({ length: 10 }, (_, index) => (
+                    {/* {Array.from({ length: 10 }, (_, index) => (
                       <ChapterCard key={index} title={`Chapter ${index + 1}`} />
-                    ))}
+                    ))} */}
+                    {
+                        videoTitle.map((e)=>{
+                          return  <ChapterCard key={e.index} title={e.title}/>
+                        })
+                    } 
                   </MotionBox>
                 </Box>
               </TabPanel>
@@ -192,13 +264,13 @@ const CourseDetailsPage = () => {
           <Card maxW="sm">
             <CardBody>
               <Image
-                src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80"
+              src={courseDetails.imageUrl}
                 alt="Green double couch with wooden legs"
                 borderRadius="lg"
               />
               <Stack mt="6" spacing="3">
                 <Text color="blue.600" fontSize="2xl">
-                  $450
+                  {courseDetails.price}
                 </Text>
               </Stack>
             </CardBody>
@@ -206,6 +278,7 @@ const CourseDetailsPage = () => {
             <CardFooter>
               <ButtonGroup spacing="2">
                 <Button
+                onClick={handlePurchase}
                   colorScheme="teal"
                   size="lg"
                   w="100%"

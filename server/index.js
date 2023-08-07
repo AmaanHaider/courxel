@@ -20,6 +20,10 @@ app.use(cors());
 connectDb();
 app.use(express.json());
 
+app.use((req, res, next) => {
+  res.setHeader("Permissions-Policy", "geolocation=(self)");
+  next();
+});
 
 // public route
 app.use("/api/allcourse",getAllCourseRoutes);

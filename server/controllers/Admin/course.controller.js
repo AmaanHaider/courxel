@@ -4,23 +4,26 @@ const createCourse = async (req, res) => {
   try {
     const userId = req.user.id;
     const authorName = req.user.name;
-    // console.log(userId,authorName);
-    const { title, description, imageUrl ,price,publish} = req.body;
+    const { title, description, imageUrl,duration, price, publish, videoData } = req.body;
+
     const course = await Course.create({
       userId,
       authorName,
       title,
       description,
       imageUrl,
+      duration,
       price,
-      publish
+      publish,
+      videoData, // Array of objects containing title and link
     });
-    return res.status(201).json({ message:"Course Created",courseId:course._id });
+
+    return res.status(201).json({ message: "Course Created", courseId: course._id });
   } catch (err) {
-    // console.error("Error creating course:", err); 
     return res.status(500).json({ error: "Error creating course" });
   }
 };
+
 
 const updateCourse = async (req, res) => {
   try {

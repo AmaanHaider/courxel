@@ -8,6 +8,8 @@ import PageNotFound from './Components/PageNotFound'
 import { UserPrivateRoute } from './PrivateRouter/UserPrivateRoute'
 import DashBoard from './Pages/UserPages/DashBoard'
 import Example from './Example'
+import Purchased from './Pages/UserPages/Purchased'
+import PurchasedDetails from './Pages/UserPages/PurchasedDetails'
 
 function App() {
   return (
@@ -25,9 +27,8 @@ function App() {
          <Route path="/user" element={<UserPrivateRoute/>}>
           <Route path="" element={<DashBoard/>} />
         <Route path="courses/:id" element={<CourseDetails/>}/> 
-
-          {/* <Route path="courses" element={<Course/>} />
-          <Route path="courses/details/:id" element={<CourseDetails/>}/> */}
+        <Route path="purchased" element={<Purchased/>}/> 
+        <Route path="purchased/:id" element={<PurchasedDetails/>}/> 
         </Route>
       </Routes>
     </div>

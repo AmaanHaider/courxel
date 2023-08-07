@@ -1,86 +1,98 @@
-import { Box, Flex, Tabs, TabList, Tab, TabPanels, TabPanel, Image, Button, Icon, Center } from '@chakra-ui/react';
-import { FaShoppingCart, FaInfoCircle, FaPlayCircle, FaLock } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea,
+  Button,
+  Checkbox,
+  VStack,
+} from '@chakra-ui/react';
 
-const MotionBox = motion(Box);
+function CreateCourseForm() {
+  const [videoData, setvideoData] = useState([{ title: '', link: '' }]);
 
-const CourseDetailsPage = () => {
-  const ChapterCard = ({ title }) => {
-    return (
-      <MotionBox
-        p="4"
-        borderRadius="md"
-        shadow="md"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Box fontSize="lg" fontWeight="bold">
-          {title}
-        </Box>
-        <Icon as={FaLock} />
-      </MotionBox>
-    );
+  const addVideoLink = () => {
+    setvideoData(prevLinks => [...prevLinks, { title: '', link: '' }]);
+  };
+
+  const handleVideoLinkChange = (index, field, value) => {
+    const updatedLinks = [...videoData];
+    updatedLinks[index][field] = value;
+    setvideoData(updatedLinks);
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    const formData = {
+      title: event.target.title.value,
+      description: event.target.description.value,
+      imageUrl: event.target.imageUrl.value,
+      price: event.target.price.value,
+      publish: event.target.publish.checked,
+      videoData: videoData,
+    };
+
+    // You can send the form data, including videoData, to your backend API here
+    console.log(formData);
   };
 
   return (
-    <Flex p="4">
-      {/* Left Section - Course Details */}
-      <Box flex="1">
-        <Tabs isFitted variant="enclosed">
-          <TabList>
-            <Tab>
-              <Icon as={FaInfoCircle} mr="2" />
-              Overview
-            </Tab>
-            <Tab>Chapters</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              {/* Overview Content */}
-              {/* Replace this with the actual course details */}
-              <Box p="4">
-                <p>This is the overview of the course. It contains...</p>
-              </Box>
-            </TabPanel>
-            <TabPanel>
-              {/* Chapters Content */}
-              <Box p="4">
-                <MotionBox
-                  display="grid"
-                  gridTemplateColumns="repeat(1, 1fr)"
-                  gap="4"
-                >
-                  {/* Dynamically generate chapter cards */}
-                  {Array.from({ length: 10 }, (_, index) => (
-                    <ChapterCard key={index} title={`Chapter ${index + 1}`} />
-                  ))}
-                </MotionBox>
-              </Box>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      </Box>
+    <form onSubmit={handleSubmit}>
+      <VStack spacing={4}>
+        <FormControl id="title">
+          <FormLabel>Title</FormLabel>
+          <Input type="text" name="title" required />
+        </FormControl>
 
-      {/* Right Section - Course Card */}
-      <Box ml="4" w="25%">
+        <FormControl id="description">
+          <FormLabel>Description</FormLabel>
+          <Textarea name="description" required />
+        </FormControl>
 
-        <Image src="https://via.placeholder.com/300x200" alt="Course Image" mb="4" w={'full'} />
-        <Button
-          colorScheme="teal"
-          size="lg"
-          w="100%"
-          leftIcon={<Icon as={FaShoppingCart} />}
-        >
-          Buy Course
+        <FormControl id="imageUrl">
+          <FormLabel>Image URL</FormLabel>
+          <Input type="text" name="imageUrl" required />
+        </FormControl>
+
+        <FormControl id="price">
+          <FormLabel>Price</FormLabel>
+          <Input type="number" name="price" required />
+        </FormControl>
+
+        <FormControl id="publish">
+          <Checkbox name="publish">Published</Checkbox>
+        </FormControl>
+
+        <FormControl id="videoData">
+          <FormLabel>Video Links</FormLabel>
+          {videoData.map((link, index) => (
+            <div key={index}>
+              <Input
+                placeholder="Video Title"
+                value={link.title}
+                onChange={e => handleVideoLinkChange(index, 'title', e.target.value)}
+                required
+              />
+              <Input
+                placeholder="Video Link"
+                value={link.link}
+                onChange={e => handleVideoLinkChange(index, 'link', e.target.value)}
+                required
+              />
+            </div>
+          ))}
+          <Button mt={2} onClick={addVideoLink}>
+            Add Video Link
+          </Button>
+        </FormControl>
+
+        <Button type="submit" colorScheme="blue">
+          Create Course
         </Button>
-      </Box>
-    </Flex>
+      </VStack>
+    </form>
   );
-};
+}
 
-export default CourseDetailsPage;
+export default CreateCourseForm;

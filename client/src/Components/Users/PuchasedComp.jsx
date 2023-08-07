@@ -7,22 +7,33 @@ import { motion } from 'framer-motion';
 
 const MotionHeading = motion(Heading);
 
-const CourseComp = () => {
+const PurchaseComp = () => {
   const [courses, setCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const coursesPerPage = 8;
 
   useEffect(() => {
+    const authToken = localStorage.getItem("USER-JWT-TOKEN");
     const fetchCourses = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}api/allCourse`);
-        setCourses(response.data.publicCourse);
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}api/user/purchasedcourse`,
+          {
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+            },
+          }
+        );
+        setCourses(response.data.purchasedCourses); 
       } catch (error) {
-        console.error('Error fetching courses:', error);
+        console.error("Error fetching courses:", error);
       }
     };
+
     fetchCourses();
   }, []);
+
+  // console.log("responseeeeeeeeeeeeeeeeeeeee", courses);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber >= 1) {
@@ -46,7 +57,7 @@ const CourseComp = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              Explore Courses
+              {/* Explore Courses */}
             </MotionHeading>
           </Center>
           <Flex
@@ -63,7 +74,7 @@ const CourseComp = () => {
               gap={6}
             >
               {currentCourses.map((card, index) => (
-                <FeaturedCards key={index} {...card} link="/user/courses" />
+                <FeaturedCards key={index} {...card} link="/user/purchased" />
               ))}
             </Grid>
           </Flex>
@@ -98,4 +109,4 @@ const CourseComp = () => {
   );
 };
 
-export default CourseComp;
+export default PurchaseComp;

@@ -4,35 +4,45 @@ const CourseSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:'User',
+      ref: 'User',
       required: true,
     },
-    authorName:{
-        type:String,
+    authorName: {
+      type: String,
     },
     title: {
       type: String,
       required: true,
     },
-    description : {
+    description: {
       type: String,
       required: true,
     },
-    imageUrl : {
+    imageUrl: {
       type: String,
       required: true,
     },
-    price : {
+    duration: {
+      type: String,
+      required: true,
+    },
+    price: {
       type: Number,
       required: true,
     },
-    publish:{
-      type:Boolean,
-      required:true,
+    publish: {
+      type: Boolean,
+      required: true,
     },
-    date:{
-      type:Date,
-      default:Date.now
+    videoData: [
+      {
+        title: String,
+        link: String,
+      },
+    ],
+    date: {
+      type: Date,
+      default: Date.now,
     },
   },
   { timestamps: true }
