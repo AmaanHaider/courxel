@@ -3,6 +3,10 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { ChakraProvider, extendTheme, ColorModeScript } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js"; 
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 // Define your custom theme
 const theme = extendTheme({
@@ -13,13 +17,14 @@ const theme = extendTheme({
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* Use the ColorModeScript to ensure color mode is loaded properly */}
-    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+    <Elements stripe={stripePromise} >
 
+    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <ChakraProvider theme={theme}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </ChakraProvider>
+    </Elements>
   </React.StrictMode>
 );

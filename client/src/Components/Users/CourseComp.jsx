@@ -10,7 +10,7 @@ const MotionHeading = motion(Heading);
 const CourseComp = () => {
   const [courses, setCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const coursesPerPage = 8;
+  const coursesPerPage = 9;
 
   useEffect(() => {
     const fetchCourses = async () => {

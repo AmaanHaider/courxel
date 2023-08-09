@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 require("dotenv").config();
 const connectDb = require("./config/db");
 const userAuthRoutes = require('./routes/User/auth.routes');
@@ -18,7 +19,7 @@ const PORT = process.env.PORT;
 
 app.use(cors());
 connectDb();
-app.use(express.json());
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   res.setHeader("Permissions-Policy", "geolocation=(self)");

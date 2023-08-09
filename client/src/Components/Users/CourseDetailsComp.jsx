@@ -39,6 +39,8 @@ import Footer from "./Footer";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+
 
 const MotionBox = motion(Box);
 
@@ -47,7 +49,8 @@ const CourseDetailsPage = () => {
   const [courseDetails, setCourseDetails] = useState([])
   const {id} = useParams(); 
   const [videoTitle, setvideoTitle] = useState([])
-
+  const stripe = useStripe();
+  const elements = useElements();
   const toast = useToast();
 
 
@@ -70,8 +73,6 @@ const CourseDetailsPage = () => {
 
   const handlePurchase = async () => {
     try {
-      console.log(authToken);
-
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}api/user/purchase/${id}`,
         {},
@@ -82,26 +83,33 @@ const CourseDetailsPage = () => {
         }
       );
 
-      // Display success message
-      toast({
-        title: "Course Purchased",
-        description: response.data.message,
-        status: "success",
-        duration: 3000,
-        isClosable: true,position:"top-right"
+      // Redirect to Stripe Checkout page
+      const { error } = await stripe.redirectToCheckout({
+        sessionId: response.data.sessionId,
       });
+
+      if (error) {
+        toast({
+          title: "Error",
+          description: error.message,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+      }
     } catch (error) {
-      // Display error message
       toast({
         title: "Error",
-        description: "Error purchasing course. Please try again later.",
+        description: "Error starting payment process. Please try again later.",
         status: "error",
         duration: 3000,
         isClosable: true,
-        position:"top-right"
+        position: "top-right",
       });
     }
   };
+
 
   const ChapterCard = ({ title }) => {
     return (
