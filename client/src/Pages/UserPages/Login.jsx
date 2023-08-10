@@ -17,8 +17,9 @@ import {
   Text,
   useColorModeValue,
   Link,
-  useToast,
   VStack,
+  Spinner,
+  useToast, // Added Spinner component from Chakra UI
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useState } from "react";
@@ -32,6 +33,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
   const toast = useToast();
   
@@ -40,24 +42,15 @@ const Login = () => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-
   const handleLogin = async (e) => {
     e.preventDefault();
+    setIsLoading(true); 
+
     try {
-      const loadingToastId = toast({
-        title: "Logging in...",
-        status: "info",
-        duration: null, 
-        isClosable: true,
-        position: "top-right",
-      });
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}api/auth/user/login`,
         formData
       );
-      toast.close(loadingToastId);
-
-      const token = response.data;
       toast({
         title: "Login successful",
         description: "You have successfully logged in!",
@@ -66,9 +59,12 @@ const Login = () => {
         duration: 5000,
         isClosable: true,
       });
-      localStorage.setItem("USER-JWT-TOKEN", token);
+     
+      localStorage.setItem("USER-JWT-TOKEN", response.data.token);
+      localStorage.setItem("NAME", response.data.name);
       navigate("/user");
     } catch (error) {
+      setIsLoading(false); // Stop loading state
       toast({
         title: "Login error",
         description: "Invalid email or password. Please try again.",
@@ -79,6 +75,7 @@ const Login = () => {
       });
     }
   };
+
   console.log(formData);
 
   return (
@@ -125,7 +122,6 @@ const Login = () => {
             boxShadow={"lg"}
             p={8}
           >
-           
             <form onSubmit={handleLogin}>
               <VStack spacing={4} align="stretch">
                 <FormControl id="email">
@@ -140,15 +136,31 @@ const Login = () => {
                 </FormControl>
                 <FormControl id="password">
                   <FormLabel>Password</FormLabel>
-                  <Input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                  />
+                  <InputGroup>
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      required
+                    />
+                    <InputRightElement width="4.5rem">
+                      <Button
+                        h="1.75rem"
+                        size="sm"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <ViewOffIcon /> : <ViewIcon />}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
                 </FormControl>
-                <Button type="submit" colorScheme="blue">
+                <Button
+                  type="submit"
+                  colorScheme="blue"
+                  isLoading={isLoading} 
+                  loadingText="Logging in..."
+                >
                   Log In
                 </Button>
                 <Box textAlign="center">

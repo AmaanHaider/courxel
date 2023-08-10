@@ -88,7 +88,7 @@ const Home = () => {
                 gap={6}
               >
                 {courses.slice(0, 6).map((card, index) => (
-                  <FeaturedCards key={card._id} {...card} />
+                  <FeaturedCards key={card._id} {...card} link="/user/courses" />
                 ))}
               </Grid>
             </Flex>

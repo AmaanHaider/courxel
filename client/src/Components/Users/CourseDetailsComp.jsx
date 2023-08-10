@@ -53,6 +53,7 @@ const CourseDetailsPage = () => {
   const elements = useElements();
   const toast = useToast();
 
+  const [isLoading, setIsLoading] = useState(false); 
 
 
     useEffect(() => {
@@ -71,7 +72,9 @@ const CourseDetailsPage = () => {
 
   const authToken = localStorage.getItem("USER-JWT-TOKEN");
 
-  const handlePurchase = async () => {
+  const handlePurchase = async (e) => {
+    e.preventDefault();
+    setIsLoading(true); 
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}api/user/purchase/${id}`,
@@ -99,6 +102,7 @@ const CourseDetailsPage = () => {
         });
       }
     } catch (error) {
+      setIsLoading(false); 
       toast({
         title: "Error",
         description: "Error starting payment process. Please try again later.",
@@ -273,7 +277,7 @@ const CourseDetailsPage = () => {
             <CardBody>
               <Image
               src={courseDetails.imageUrl}
-                alt="Green double couch with wooden legs"
+                alt="Course Image"
                 borderRadius="lg"
               />
               <Stack mt="6" spacing="3">
@@ -291,6 +295,7 @@ const CourseDetailsPage = () => {
                   size="lg"
                   w="100%"
                   rightIcon={<Icon as={FaShoppingCart} />}
+                  isLoading={isLoading} 
                 >
                   Buy Course
                 </Button>

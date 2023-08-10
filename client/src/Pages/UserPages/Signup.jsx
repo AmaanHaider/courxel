@@ -81,6 +81,8 @@ export default function Signup() {
     email: '',
     password: '',
   });
+  const [isLoading, setIsLoading] = useState(false); 
+
 
   const navigate = useNavigate();
   const toast = useToast();
@@ -92,17 +94,11 @@ export default function Signup() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    try {
-        const loadingToastId = toast({
-            title: "Signing up...",
-            status: "info",
-            duration: null, // Set duration to null to keep the toast visible until manually dismissed
-            isClosable: false,
-            position: 'top-right',
-          });
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}api/auth/user/register`, formData);
-      toast.close(loadingToastId);
+    setIsLoading(true); 
 
+    try {
+        
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}api/auth/user/register`, formData);
       toast({
         title: 'Sign up successful',
         description: 'You have successfully signed up, Login to continue!',
@@ -113,6 +109,8 @@ export default function Signup() {
       });
       navigate('/login');
     } catch (error) {
+      setIsLoading(false); 
+
       toast({
         title: 'Sign up error',
         description: 'An error occurred while signing up. Please try again later.',
@@ -276,7 +274,6 @@ export default function Signup() {
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Button
-                 loadingText="Submitting"
                  size="lg"
                  bg={"red.400"}
                  // color={"white"}
@@ -287,8 +284,10 @@ export default function Signup() {
                  px={6}
                  colorScheme={"red"}
                  onClick={handleSignup}
+                 isLoading={isLoading} 
+                 loadingText="Signing in..."
                 >
-                Sign up
+                Sign in
               </Button>
             </Stack>
             <Stack pt={6}>

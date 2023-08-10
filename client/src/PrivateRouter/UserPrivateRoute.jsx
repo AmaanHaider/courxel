@@ -1,8 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import PageNotFound from '../Components/PageNotFound';
-import NotAuth from '../Components/NotAuth';
+import NotAuth from '../Pages/NotAuth';
 
 export const UserPrivateRoute = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

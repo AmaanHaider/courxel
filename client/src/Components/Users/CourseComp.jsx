@@ -22,7 +22,7 @@ const CourseComp = () => {
       }
     };
     fetchCourses();
-  }, []);
+  }, [])
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber >= 1) {
