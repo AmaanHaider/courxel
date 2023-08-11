@@ -33,7 +33,6 @@ const PurchaseComp = () => {
     fetchCourses();
   }, []);
 
-  // console.log("responseeeeeeeeeeeeeeeeeeeee", courses);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber >= 1) {

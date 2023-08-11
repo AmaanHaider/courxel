@@ -85,8 +85,6 @@ const CourseDetailsPage = () => {
           },
         }
       );
-
-      // Redirect to Stripe Checkout page
       const { error } = await stripe.redirectToCheckout({
         sessionId: response.data.sessionId,
       });

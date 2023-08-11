@@ -49,7 +49,6 @@ import {
           });
           setCourseDetails(response.data);
           setvideoData(response.data.videoData)
-          console.log(response.data.videoData);
         } catch (error) {
           console.error('Error fetching courses:', error);
         }
@@ -172,28 +171,21 @@ import {
                       gridTemplateColumns="repeat(1, 1fr)"
                       gap="4"
                     >
-                      {/* <Accordion allowMultiple>
-                      {
-                          videoData.map((e)=>{
-                            return  <ChapterCard key={e.index} title={e.title} link={e.link}/>
-                          })
-                      } 
-                      </Accordion> */}
                        <Accordion allowMultiple>
                       {
                           videoData.map((e)=>{
                             return   <MotionBox
-          p="4"
-          borderRadius="md"
-          shadow="md"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-        >
+                        p="4"
+                        borderRadius="md"
+                        shadow="md"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                            >
           <AccordionItem w={"full"}>
             <AccordionButton>
             <Box flex="1" textAlign="left">

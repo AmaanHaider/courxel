@@ -3,8 +3,6 @@ import { Flex, Box, chakra, Image, Button, Center, Text } from "@chakra-ui/react
 import { motion } from "framer-motion"; // Import motion from framer-motion
 import { Link } from "react-router-dom";
 
-// import { BiSolidPurchaseTag } from 'react-icons/bi';
-
 
 
 export const FeaturedCards = ({ imageUrl, title, description, authorName, date, _id ,link}) => (

@@ -3,6 +3,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const connectDb = require("./config/db");
+const corsOptions = require("./config/constants");
+
 const userAuthRoutes = require('./routes/User/auth.routes');
 const adminAuthRoutes = require('./routes/Admin/auth.routes');
 const courseRoutes = require('./routes/Admin/course.routes');
@@ -11,13 +13,13 @@ const getCourseByIdRoutes = require('./routes/Public/getCourseById.routes');
 const purchaseCourseById = require('./routes/User/purchase.routes');
 const purchasedCourse = require('./routes/User/purchasedcourse.routes');
 const {validateAdmin} = require("./middlewares/validateAdmin");
-const myCoursesRoutes = require('./routes/Public/mycourse.routes');
+const myCoursesRoutes = require('./routes/Admin/mycourse.routes');
 const validateToken = require("./middlewares/validateToken");
 
 const app = express();
 const PORT = process.env.PORT;
 
-app.use(cors());
+app.use(cors(corsOptions));
 connectDb();
 app.use(bodyParser.json());
 
@@ -27,6 +29,7 @@ app.use((req, res, next) => {
 });
 
 // public route
+
 app.use("/api/allcourse",getAllCourseRoutes);
 app.use("/api/getcourse",getCourseByIdRoutes);
 

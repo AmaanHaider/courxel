@@ -9,9 +9,7 @@ import { FaDownload } from "react-icons/fa";
 const LinkItems = [
   { name: "Home", icon: FiHome,navlink:"/user" },
   { name: "Purchased Course", icon: FaDownload,navlink:"/user/purchased"  },
-  // { name: "Explore", icon: FiCompass ,navlink:"/user" },
-  // { name: "Favourites", icon: FiStar ,navlink:"/user" },
-  // { name: "Settings", icon: FiSettings ,navlink:"/user" },
+  
 ];
 
 const SidebarContent = ({ onClose, ...rest }) => {

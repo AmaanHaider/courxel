@@ -1,9 +1,10 @@
 import React from 'react'
 import AdminDashboardComp from '../../Components/Admin/AdminDashboardComp'
+import AdminMyCourseComp from '../../Components/Admin/AdminMyCourseComp'
 
 const AdminMyCourses = () => {
   return (
-    <AdminDashboardComp/>
+    <AdminDashboardComp Children={<AdminMyCourseComp/>}/>
   )
 }
 

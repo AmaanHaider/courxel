@@ -22,17 +22,16 @@ const purchaseCourseById = async (req, res) => {
     if (user.purchasedCourses.includes(courseId)) {
       return res.status(400).json({ message: "Course already purchased" });
     }
-
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
         {
           price_data: {
-            currency: "inr", 
+            currency: "usd",
             product_data: {
               name: course.title,
             },
-            unit_amount: course.price * 100, 
+            unit_amount: course.price * 100, // Stripe uses cents
           },
           quantity: 1,
         },
@@ -42,11 +41,10 @@ const purchaseCourseById = async (req, res) => {
       cancel_url: process.env.STRIPE_FAILURE_PAGE,
     });
 
-
     user.purchasedCourses.push(courseId);
     await user.save();
 
-    res.status(200).json({ sessionId: session.id });
+    return res.status(200).json({ sessionId: session.id }); 
   } catch (error) {
     return res.status(500).json({ error: "Error purchasing course" });
   }

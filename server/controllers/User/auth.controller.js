@@ -69,7 +69,7 @@ const loginUser = async (req, res) => {
 
 const currentUser = async (req, res) => {
   try {
-    const { name, email } = req.user; // Include  field in the response
+    const { name, email } = req.user; 
     res.json({ name, email });
   } catch (error) {
     res.status(500).json({ message: "Error fetching user data", error: error.message });

@@ -7,9 +7,7 @@ export const UserPrivateRoute = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('USER-JWT-TOKEN'); 
-    console.log("user Token",token);
-    
+    const token = localStorage.getItem('USER-JWT-TOKEN');     
     if (token) {
       setIsAuthenticated(true);   
     }

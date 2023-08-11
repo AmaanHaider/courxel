@@ -49,7 +49,6 @@ const AdminSignUp = () => {
           `${import.meta.env.VITE_API_URL}api/auth/admin/register`,
           formData
         );
-        // console.log(response);
         toast({
           title: "Sign up successful",
           description: "You have successfully signed up, Login to continue!",

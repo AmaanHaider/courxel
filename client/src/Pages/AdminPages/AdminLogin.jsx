@@ -219,7 +219,7 @@ const AdminLogin = () => {
             <Flex px={6} py={4}></Flex>
           <Box textAlign="center" >
             <Text color={"gray.100"}>
-            Don't have an account? <Link  to="/admin" color={'blue.400'}>Sign up here.</Link>
+            Don't have an account? <Link  to="/admin/signup" color={'blue.400'}>Sign up here.</Link>
             </Text>
           </Box>
           </Box>
