@@ -3,19 +3,18 @@ import { useState, useEffect } from 'react';
 import NotAuth from '../Pages/UserPages/NotAuth';
 import { Outlet } from 'react-router-dom';
 
-export const UserPrivateRoute = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+export const AdminPrivateRoute = () => {
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('USER-JWT-TOKEN'); 
-    console.log("user Token",token);
+    const token = localStorage.getItem('ADMIN-JWT-TOKEN'); 
     
     if (token) {
-      setIsAuthenticated(true);   
+      setIsAdminAuthenticated(true);   
     }
   },[]);
 
-  if (isAuthenticated) {
+  if (isAdminAuthenticated) {
     return <Outlet/>;
   } else {
     return <NotAuth/>;

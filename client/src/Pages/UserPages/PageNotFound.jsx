@@ -4,8 +4,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 const PageNotFound = () => {
-  const [seconds, setSeconds] = useState(20);
-
+  const [seconds, setSeconds] = useState(5);
   useEffect(() => {
     const countdown = setInterval(() => {
       setSeconds((prevSeconds) => prevSeconds - 1);

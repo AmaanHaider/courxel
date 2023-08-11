@@ -57,7 +57,7 @@ const loginAdmin = async (req, res) => {
         process.env.JWT_SECRET,
         { expiresIn: "59m" }
       );
-      res.status(200).json(token);
+      res.status(200).json({token:token,adminname:user.name});
     } else {
       res.status(401);
       throw new Error("Email or password is not valid");

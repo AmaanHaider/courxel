@@ -1,17 +1,18 @@
-import React from "react";
+import React from 'react'
+
 import { IconButton, Avatar, Box, CloseButton, Flex, HStack, VStack, Icon, useColorModeValue, Text, Drawer, DrawerContent, useDisclosure, Menu, MenuButton, MenuDivider, MenuItem, MenuList, useColorMode, Button, Container, Center, Heading } from "@chakra-ui/react";
 import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
 import { ArrowForwardIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import courxelLogo from "../../assets/courxel-logo.png";
-import { FaDownload } from "react-icons/fa";
+import { AiFillBook } from "react-icons/ai";
+import { TfiWrite } from "react-icons/tfi";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
 
 const LinkItems = [
-  { name: "Home", icon: FiHome,navlink:"/user" },
-  { name: "Purchased Course", icon: FaDownload,navlink:"/user/purchased"  },
-  // { name: "Explore", icon: FiCompass ,navlink:"/user" },
-  // { name: "Favourites", icon: FiStar ,navlink:"/user" },
-  // { name: "Settings", icon: FiSettings ,navlink:"/user" },
+  { name: "Create Course", icon: TfiWrite ,navlink:"/admin/dashboard" },
+  { name: "My Courses", icon: AiFillBook,navlink:"/admin/dashboard/mycourses"  },
+  
 ];
 
 const SidebarContent = ({ onClose, ...rest }) => {
@@ -200,7 +201,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
   );
 };
 
-const DashboardComp = ({Children}) => {
+const AdminDashboardComp = ({Children}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -237,4 +238,4 @@ const DashboardComp = ({Children}) => {
   );
 };
 
-export default DashboardComp;
+export default AdminDashboardComp;

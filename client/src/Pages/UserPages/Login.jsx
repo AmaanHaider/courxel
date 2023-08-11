@@ -56,7 +56,7 @@ const Login = () => {
         description: "You have successfully logged in!",
         status: "success",
         position: "top-right",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
       });
      
@@ -70,13 +70,12 @@ const Login = () => {
         description: "Invalid email or password. Please try again.",
         status: "error",
         position: "top-right",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
       });
     }
   };
 
-  console.log(formData);
 
   return (
     <Box position={"relative"}>

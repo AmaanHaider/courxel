@@ -5,21 +5,27 @@ import {
   Input,
   Textarea,
   Button,
-  Checkbox,
   VStack,
+  Switch,
+  useColorMode,
 } from '@chakra-ui/react';
 
 function CreateCourseForm() {
-  const [videoData, setvideoData] = useState([{ title: '', link: '' }]);
+  const [videoData, setVideoData] = useState([{ title: '', link: '' }]);
+  const [isPublished, setIsPublished] = useState(false);
 
   const addVideoLink = () => {
-    setvideoData(prevLinks => [...prevLinks, { title: '', link: '' }]);
+    setVideoData(prevLinks => [...prevLinks, { title: '', link: '' }]);
   };
 
   const handleVideoLinkChange = (index, field, value) => {
     const updatedLinks = [...videoData];
     updatedLinks[index][field] = value;
-    setvideoData(updatedLinks);
+    setVideoData(updatedLinks);
+  };
+
+  const handlePublishedToggle = () => {
+    setIsPublished(prevValue => !prevValue);
   };
 
   const handleSubmit = event => {
@@ -29,7 +35,7 @@ function CreateCourseForm() {
       description: event.target.description.value,
       imageUrl: event.target.imageUrl.value,
       price: event.target.price.value,
-      publish: event.target.publish.checked,
+      publish: isPublished,
       videoData: videoData,
     };
 
@@ -37,9 +43,16 @@ function CreateCourseForm() {
     console.log(formData);
   };
 
+  const { colorMode } = useColorMode();
+
   return (
     <form onSubmit={handleSubmit}>
-      <VStack spacing={4}>
+      <VStack
+        spacing={4}
+        bg={colorMode === 'light' ? 'gray.100' : 'gray.800'}
+        p={8}
+        borderRadius="md"
+      >
         <FormControl id="title">
           <FormLabel>Title</FormLabel>
           <Input type="text" name="title" required />
@@ -61,23 +74,37 @@ function CreateCourseForm() {
         </FormControl>
 
         <FormControl id="publish">
-          <Checkbox name="publish">Published</Checkbox>
+          <FormLabel>Published</FormLabel>
+          <Switch
+            id="publishedSwitch"
+            size="lg"
+            isChecked={isPublished}
+            onChange={handlePublishedToggle}
+          />
+          <FormLabel>
+            {isPublished ? 'Public' : 'Private'}
+          </FormLabel>
         </FormControl>
 
         <FormControl id="videoData">
           <FormLabel>Video Links</FormLabel>
           {videoData.map((link, index) => (
             <div key={index}>
+              <FormLabel>Video {index + 1}</FormLabel>
               <Input
                 placeholder="Video Title"
                 value={link.title}
-                onChange={e => handleVideoLinkChange(index, 'title', e.target.value)}
+                onChange={e =>
+                  handleVideoLinkChange(index, 'title', e.target.value)
+                }
                 required
               />
               <Input
                 placeholder="Video Link"
                 value={link.link}
-                onChange={e => handleVideoLinkChange(index, 'link', e.target.value)}
+                onChange={e =>
+                  handleVideoLinkChange(index, 'link', e.target.value)
+                }
                 required
               />
             </div>

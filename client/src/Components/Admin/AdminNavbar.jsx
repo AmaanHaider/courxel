@@ -19,7 +19,7 @@ import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import courxelLogo from "../../assets/courxel-logo.png";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const AdminNavbar = () => {
     const {colorMode , toggleColorMode}= useColorMode()
   const bg = useColorModeValue("white", "gray.800");
   const mobileNav = useDisclosure();
@@ -38,7 +38,7 @@ const Navbar = () => {
         <Flex alignItems="center" justifyContent="space-between" mx="auto">
           <Flex>
             <chakra.a
-              href="/"
+              href="/admin/signup"
               title="CourXel Home Page"
               display="flex"
               alignItems="center"
@@ -46,7 +46,7 @@ const Navbar = () => {
               <VisuallyHidden>CourXel</VisuallyHidden>
             </chakra.a>
             <chakra.h1 fontSize="xl" fontWeight="medium" ml="2">
-              <Link to='/'>
+              <Link to='/admin/signup'>
              <Box w="120px" h="fit-content" mr={2}>
               <img  src={courxelLogo} alt="CourXel" />
              </Box>
@@ -60,19 +60,19 @@ const Navbar = () => {
               color="brand.500"
               display={{ base: "none", md: "inline-flex" }}
             >
-              <Link to='/signup'>
+              <Link to='/admin/signup'>
                 <Button variant="ghost">  Sign Up</Button>
               </Link>
-              <Link to='/login'>
+              <Link to='/admin/login'>
                 <Button variant="ghost">Log In</Button>
               </Link>
               <Button onClick={toggleColorMode}>
                 {colorMode==="light" ? <MoonIcon/> : <SunIcon/>}
               </Button>
             </HStack>
-            <Link to='/admin/signup'>
+            <Link to='/'>
             <Button colorScheme="red" size="sm">
-              Create Course
+              Buy Course
             </Button>
             </Link>
             <Box display={{ base: "inline-flex", md: "none" }}>
@@ -105,15 +105,15 @@ const Navbar = () => {
                   aria-label="Close menu"
                   onClick={mobileNav.onClose}
                 />
-              <Link to='/signup'>
+              <Link to='/admin'>
                 <Button variant="ghost">  Sign Up</Button>
               </Link>
-              <Link to='/login'>
+              <Link to='/admin/login'>
                 <Button variant="ghost">Log In</Button>
               </Link>
-              <Link to='/admin/signup'>
+              <Link to='/'>
               <Button colorScheme="red" size="sm">
-              Create Course
+              Buy Course
             </Button>
               </Link>
              
@@ -125,4 +125,4 @@ const Navbar = () => {
     </React.Fragment>
   );
 };
-export default Navbar;
+export default AdminNavbar;

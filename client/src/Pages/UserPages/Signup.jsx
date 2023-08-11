@@ -110,7 +110,6 @@ export default function Signup() {
       navigate('/login');
     } catch (error) {
       setIsLoading(false); 
-
       toast({
         title: 'Sign up error',
         description: 'An error occurred while signing up. Please try again later.',

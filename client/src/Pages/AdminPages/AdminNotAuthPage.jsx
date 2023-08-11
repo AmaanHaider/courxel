@@ -2,10 +2,10 @@ import React from 'react';
 import { Box, Center, Button, Heading, Image, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import courxelLogo from "../assets/courxel-logo.png";
+import courxelLogo from "../../assets/courxel-logo.png";
 
 
-const NotAuth = () => {
+const AdminNotAuthPage = () => {
   return (
     <Box
       backgroundImage="url('https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2113&q=80')"
@@ -51,10 +51,10 @@ const NotAuth = () => {
             Log in to continue !
           </motion.p>
           <Box mt={8}>
-            <Button as={Link} to="/login" colorScheme="blue" mr={4}>
+            <Button as={Link} to="/admin/login" colorScheme="blue" mr={4}>
               Log In
             </Button>
-            <Button as={Link} to="/" colorScheme="green">
+            <Button as={Link} to="/admin" colorScheme="green">
               Go to Home
             </Button>
           </Box>
@@ -62,6 +62,6 @@ const NotAuth = () => {
       </Box>
     </Box>
   );
-};
+}
 
-export default NotAuth;
+export default AdminNotAuthPage
