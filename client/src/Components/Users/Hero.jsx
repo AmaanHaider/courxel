@@ -70,9 +70,11 @@ export default function Hero() {
             </Text>
           </Heading>
           <Text color={"gray.500"}>
-            Snippy is a rich coding snippets app that lets you create your own
-            code snippets, categorize them, and even sync them in the cloud so
-            you can use them anywhere. All that is free!
+          Courxel : Where Learning Meets Opportunity, 
+          and Ambition Finds Its Wings. Embark on a Journey of Skill Discovery,
+           Empowered by Expertise and Fueled by Your Drive. 
+           Seize the Tools to Carve Your Path to Greatness, 
+           Unleash Your Potential with Courxel  Today!"
           </Text>
           <Stack
             spacing={{ base: 4, sm: 6 }}
@@ -91,7 +93,7 @@ export default function Hero() {
               Explore Courses
             </Button>
             </Link>
-            <Link>
+            <Link to='/admin/signup'>
             <Button rounded={"full"} size={"lg"} fontWeight={"normal"} px={6}>
               Create Course
             </Button>

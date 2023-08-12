@@ -16,7 +16,10 @@ export const FeaturedCards = ({ imageUrl, title, description, authorName, date, 
     bg="white"
     _dark={{ bg: "gray.800" }}
     maxW={{ base: "90%", md: "2xl" }}
-  >
+    style={{
+  boxShadow: "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px"
+
+    }}  >
     <Image
       roundedTop="lg"
       w="full"
@@ -43,9 +46,8 @@ export const FeaturedCards = ({ imageUrl, title, description, authorName, date, 
         </chakra.p>
       </Box>
       <Box mt={4}>
-        <Flex alignItems="center">
+        <Box alignItems="center">
           <Flex alignItems="center">
-            
             <Text
               mx={2}
               fontWeight="bold"
@@ -55,16 +57,17 @@ export const FeaturedCards = ({ imageUrl, title, description, authorName, date, 
              Author : {authorName}
             </Text>
           </Flex>
-          <chakra.span
-            mx={1}
-            fontSize="sm"
-            color="gray.600"
-            _dark={{ color: "gray.300" }}
-          >
-            {new Date(date).toLocaleDateString() }
-          </chakra.span>
-        </Flex>
-        <Box mt={2}>
+          <Text
+              mx={2}
+              fontWeight="bold"
+              color="gray.700"
+              _dark={{ color: "gray.200" }}
+            >
+              Date : {new Date(date).toLocaleDateString() }
+            </Text>
+              
+         </Box>
+        <Box mt={5}>
             <Center>
               <Link to={`${link}/${_id}`}>
             <Button  colorScheme='teal' variant='outline'>

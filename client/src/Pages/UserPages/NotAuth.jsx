@@ -54,8 +54,8 @@ const NotAuth = () => {
             <Button as={Link} to="/login" colorScheme="blue" mr={4}>
               Log In
             </Button>
-            <Button as={Link} to="/" colorScheme="green">
-              Go to Home
+            <Button as={Link} to="/admin/login" colorScheme="green">
+              Log In As Admin
             </Button>
           </Box>
         </motion.div>

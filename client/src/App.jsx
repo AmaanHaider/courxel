@@ -21,6 +21,8 @@ function App() {
     <div>
       <Routes>
           <Route path='*' element={<PageNotFound/>}/>
+          <Route path='' element={<PageNotFound/>}/>
+
 
           {/*----------------userroutes----------------*/}
             <Route path='/' element={<Home/>}/>
@@ -50,7 +52,6 @@ function App() {
             <Route path='dashboard/mycourses' element={<AdminMyCourses/>}/>
             <Route path='dashboard/mycourses/:id' element={<AdminCourseEdit/>}/>
           </Route>
-
 
       </Routes>
     </div>
