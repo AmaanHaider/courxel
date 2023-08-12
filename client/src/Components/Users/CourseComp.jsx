@@ -59,8 +59,8 @@ const CourseComp = () => {
             flexWrap="wrap"
           >
             <Grid
-              templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
-              gap={6}
+              templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
+              gap={4}
             >
               {currentCourses.map((card, index) => (
                 <FeaturedCards key={index} {...card} link="/user/courses" />

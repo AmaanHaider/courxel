@@ -170,7 +170,7 @@ const CourseDetailsPage = () => {
                       </Heading>
                       <Flex alignItems="center" mb="2">
                         <Icon as={AiOutlineClockCircle} mr="2" />
-                        <Box>Duration: {courseDetails.duration}</Box>
+                        <Box>Duration: 8-10 weeks</Box>
                       </Flex>
                       <Box mb="4" mt="5%">
                         <Heading as="h1" size="xl" fontWeight="semibold" mb="2">
@@ -188,7 +188,7 @@ const CourseDetailsPage = () => {
                         mt="15%"
                         mb="2%"
                       >
-                        <Heading as="h1" size="xl">
+                        <Heading as="h1" size="lg">
                           Frequently Asked Questions (FAQ)
                           <Icon as={FaQuestionCircle} ml="2" />
                         </Heading>
