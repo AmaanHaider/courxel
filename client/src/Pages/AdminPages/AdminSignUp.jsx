@@ -54,7 +54,7 @@ const AdminSignUp = () => {
           description: "You have successfully signed up, Login to continue!",
           status: "success",
           position: "top-right",
-          duration: 5000,
+          duration: 3000,
           isClosable: true,
         });
         navigate("/admin/login");
@@ -66,7 +66,7 @@ const AdminSignUp = () => {
             "An error occurred while signing up. Please try again later.",
           status: "error",
           position: "top-right",
-          duration: 5000,
+          duration: 3000,
           isClosable: true,
         });
       }

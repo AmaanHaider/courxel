@@ -54,7 +54,7 @@ const AdminLogin = () => {
         description: "You have successfully logged in!",
         status: "success",
         position: "top-right",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
       });     
       localStorage.setItem("ADMIN-JWT-TOKEN", response.data.token);
@@ -67,7 +67,7 @@ const AdminLogin = () => {
         description: "Invalid email or password. Please try again.",
         status: "error",
         position: "top-right",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
       });
     }

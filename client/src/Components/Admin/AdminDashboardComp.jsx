@@ -99,11 +99,11 @@ const MobileNav = ({ onOpen, ...rest }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const navigate = useNavigate();
 
-  const handleLogout = (e) => {
+  const handleAdminLogout = (e) => {
     e.preventDefault();
-    localStorage.removeItem("USER-JWT-TOKEN");
-    localStorage.removeItem("NAME");
-    navigate("/login");
+    localStorage.removeItem("ADMIN-JWT-TOKEN");
+    localStorage.removeItem("ADMINNAME");
+    navigate("/admin/login");
   };
 
 
@@ -165,7 +165,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 >
                   <Text fontSize="sm">Hi , {localStorage.getItem('NAME')}</Text>
                   <Text fontSize="xs" color="gray.600">
-                    User
+                    Admin
                   </Text>
                 </VStack>
                 <Box display={{ base: "none", md: "flex" }}>
@@ -187,7 +187,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   rightIcon={<ArrowForwardIcon />}
                   colorScheme="red"
                   variant="outline"
-                  onClick={handleLogout}
+                  onClick={handleAdminLogout}
                 >
                   Sign Out
                 </Button>

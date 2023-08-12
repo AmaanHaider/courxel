@@ -4,4 +4,6 @@ const myCourseController = require('../../controllers/Admin/course.controller')
 
 
 router.get("/", myCourseController.getCourseByUserId );
+router.get("/:id", myCourseController.getCourseById );
+
 module.exports = router;

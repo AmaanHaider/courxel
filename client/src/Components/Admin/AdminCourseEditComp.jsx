@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FormControl,
   FormLabel,
@@ -16,12 +16,15 @@ import {
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { useToast } from '@chakra-ui/react';
+import { useParams } from 'react-router-dom';
 
 
-function AdminCreateCourseComp() {
+function AdminCourseEditComp() {
   const [videoData, setVideoData] = useState([{ title: '', link: '' }]);
   const [isPublished, setIsPublished] = useState(false);
   const { colorMode } = useColorMode();
+  const {id} = useParams(); 
+
   const toast = useToast();
 
   const addVideoLink = () => {
@@ -33,6 +36,7 @@ function AdminCreateCourseComp() {
     updatedLinks[index][field] = value;
     setVideoData(updatedLinks);
   };
+  
   const handleDeleteVideoLink = index => {
     const updatedLinks = [...videoData];
     updatedLinks.splice(index, 1);
@@ -42,6 +46,32 @@ function AdminCreateCourseComp() {
   const handlePublishedToggle = () => {
     setIsPublished(prevValue => !prevValue);
   };
+
+  useEffect(() => {
+    const fetchCourseDetails = async () => {
+      const authToken = localStorage.getItem("ADMIN-JWT-TOKEN");
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}api/admin/mycourses/${id}`, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
+        // console.log(response.data.course);
+        
+        setVideoData(response.data.course[0].videoData);
+        setIsPublished(response.data.course[0].publish);
+      
+        document.getElementById('title').value = response.data.course[0].title;
+        document.getElementById('description').value = response.data.course[0].description;
+        document.getElementById('imageUrl').value = response.data.course[0].imageUrl;
+        document.getElementById('price').value = response.data.course[0].price;
+      } catch (error) {
+        console.error('Error fetching course details:', error);
+      }
+    };
+
+    fetchCourseDetails();
+  }, [id]);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -57,7 +87,7 @@ function AdminCreateCourseComp() {
 
     const authToken = localStorage.getItem("ADMIN-JWT-TOKEN");
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}api/admin/course/create`, formData,{
+         await axios.put(`${import.meta.env.VITE_API_URL}api/admin/course/update/${id}`, formData,{
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -65,8 +95,8 @@ function AdminCreateCourseComp() {
 
       event.target.reset();
       toast({
-        title: 'Course created',
-        description: 'The course has been created successfully.',
+        title: 'Course Updated',
+        description: 'The course has been Updated successfully.',
         status: 'success',
         duration: 3000,
         isClosable: true,
@@ -74,10 +104,10 @@ function AdminCreateCourseComp() {
       });
 
     } catch (error) {
-      // console.error('Error creating course:', error);
+      
       toast({
-        title: 'Error creating course',
-        description: 'An error occurred while creating the course.',
+        title: 'Error updating course',
+        description: 'An error occurred while updating the course.',
         status: 'error',
         duration: 3000,
         isClosable: true,
@@ -85,12 +115,42 @@ function AdminCreateCourseComp() {
     }
   };
 
+  const handleCourseDelete =async(e)=>{
+    event.preventDefault();
+    const authToken = localStorage.getItem("ADMIN-JWT-TOKEN");
+    try {
+         await axios.delete(`${import.meta.env.VITE_API_URL}api/admin/course/delete/${id}`,{
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      toast({
+        title: 'Course Deleted',
+        description: 'The course has been deleted successfully.',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+        position:'top-right'
+      });
+
+    } catch (error) {
+      
+      toast({
+        title: 'Error deleting course',
+        description: 'An error occurred while deleting the course.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  }
+
   return (
     <Box>
         <Box mb="2%">
             <Center>
             <Heading>
-                Create Your Course
+                Edit Course
             </Heading>
             </Center>
         </Box>
@@ -162,7 +222,7 @@ function AdminCreateCourseComp() {
                     onChange={e =>
                       handleVideoLinkChange(index, 'title', e.target.value)
                     }
-                    required
+                    
                   />
                   <Input
                     placeholder="Video Link"
@@ -170,7 +230,7 @@ function AdminCreateCourseComp() {
                     onChange={e =>
                       handleVideoLinkChange(index, 'link', e.target.value)
                     }
-                    required
+                    
                   />
                  
                 </div>
@@ -179,11 +239,15 @@ function AdminCreateCourseComp() {
                 Add Video Link
               </Button>
             </FormControl>
-
-
-        <Button type="submit" colorScheme="blue">
-          Create Course
-        </Button>
+            <Flex gap={5}>
+            <Button type="submit" colorScheme="blue">
+              Edit Course
+            </Button>
+            <Button  onClick={handleCourseDelete} colorScheme="red">
+              Delete Course
+            </Button>
+            </Flex>
+     
       </VStack>
     </form>
         </Box>
@@ -192,4 +256,4 @@ function AdminCreateCourseComp() {
   );
 }
 
-export default AdminCreateCourseComp;
+export default AdminCourseEditComp;

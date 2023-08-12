@@ -161,9 +161,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   ml="2"
                 >
                   <Text fontSize="sm">Hi , {localStorage.getItem('NAME')}</Text>
-                  <Text fontSize="xs" color="gray.600">
-                    User
-                  </Text>
+                  
                 </VStack>
                 <Box display={{ base: "none", md: "flex" }}>
                   <FiChevronDown />

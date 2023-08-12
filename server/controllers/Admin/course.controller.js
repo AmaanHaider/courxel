@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Course = require("../../model/admin/course.model");
 
 const createCourse = async (req, res) => {
@@ -29,7 +30,7 @@ const updateCourse = async (req, res) => {
   try {
     const courseId = req.params.id;
     const userId= req.user.id;
-    const { title, description, price, imageUrl,publish } = req.body;
+    const { title, description, price, imageUrl,publish ,videoData} = req.body;
     const findCourse = await Course.findById({ _id: courseId });
     const courseUserId = findCourse.userId;
     
@@ -45,6 +46,7 @@ const updateCourse = async (req, res) => {
     findCourse.price = price; 
     findCourse.imageUrl = imageUrl; 
     findCourse.publish = publish; 
+    findCourse.videoData= videoData;
 
     await findCourse.save();
     return res.status(201).json({ message: "Course Updated" });
@@ -94,9 +96,50 @@ const getCourseByUserId = async (req, res) => {
   }
 };
 
+
+const getCourseById = async (req, res) => {
+  try {
+    const courseId = req.params.id;
+    if (!mongoose.Types.ObjectId.isValid(courseId)) {
+      return res.status(400).json({ message: "Invalid courseId." });
+    }
+    const course = await Course.aggregate([
+      { $match: { _id: mongoose.Types.ObjectId.createFromHexString(courseId)} }, 
+      {
+        $project: {
+          _id: 1,
+          userId: 1,
+          authorName: 1,
+          title: 1,
+          description: 1,
+          imageUrl: 1,
+          duration:1,
+          price: 1,
+          publish: 1,
+          date: 1,
+          createdAt: 1,
+          updatedAt: 1,
+          videoData: 1,
+        },
+      },
+    ]);
+
+    if (course.length === 0) {
+      return res.status(404).json({ message: "No course found for the given courseId." });
+    }
+
+    return res.status(200).json({course:course});
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Error finding course by courseId.' });
+  }
+};
+
+
 module.exports = {
   createCourse,
   updateCourse,
   deleteCourse,
-  getCourseByUserId
+  getCourseByUserId,
+  getCourseById
 };

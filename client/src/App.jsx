@@ -14,6 +14,7 @@ import AdminLogin from './Pages/AdminPages/AdminLogin'
 import AdminDashboard from './Pages/AdminPages/AdminDashboard'
 import AdminMyCourses from './Pages/AdminPages/AdminMyCourses'
 import { AdminPrivateRoute } from './PrivateRouter/AdminPrivateRoutes'
+import AdminCourseEdit from './Pages/AdminPages/AdminCourseEdit'
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route path='/admin/' element={<AdminPrivateRoute/>}>
             <Route path='dashboard' element={<AdminDashboard/>}/>
             <Route path='dashboard/mycourses' element={<AdminMyCourses/>}/>
+            <Route path='dashboard/mycourses/:id' element={<AdminCourseEdit/>}/>
           </Route>
 
 

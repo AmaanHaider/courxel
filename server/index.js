@@ -3,7 +3,6 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const connectDb = require("./config/db");
-const corsOptions = require("./config/constants");
 
 const userAuthRoutes = require('./routes/User/auth.routes');
 const adminAuthRoutes = require('./routes/Admin/auth.routes');
@@ -19,7 +18,7 @@ const validateToken = require("./middlewares/validateToken");
 const app = express();
 const PORT = process.env.PORT;
 
-app.use(cors(corsOptions));
+app.use(cors());
 connectDb();
 app.use(bodyParser.json());
 

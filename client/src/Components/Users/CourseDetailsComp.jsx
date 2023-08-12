@@ -39,7 +39,7 @@ import Footer from "./Footer";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useStripe } from '@stripe/react-stripe-js';
 
 
 const MotionBox = motion(Box);
@@ -50,7 +50,6 @@ const CourseDetailsPage = () => {
   const {id} = useParams(); 
   const [videoTitle, setvideoTitle] = useState([])
   const stripe = useStripe();
-  const elements = useElements();
   const toast = useToast();
 
   const [isLoading, setIsLoading] = useState(false); 
@@ -280,7 +279,7 @@ const CourseDetailsPage = () => {
               />
               <Stack mt="6" spacing="3">
                 <Text color="blue.600" fontSize="2xl">
-                  {courseDetails.price}
+                $ {courseDetails.price}
                 </Text>
               </Stack>
             </CardBody>
